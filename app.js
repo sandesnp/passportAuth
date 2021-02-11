@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 require('dotenv').config();
 
 mongoose.connect(
-	`mongodb://localhost:27017/authdb`,
+	`mongodb+srv://${process.env.ID}:${process.env.PASSWORD}@cluster0.b9kou.mongodb.net/authdb`,
 	{
 		useNewUrlParser: true,
 		useFindAndModify: true,
@@ -30,7 +30,7 @@ mongoose.connect(
 //using express-session
 app.use(
 	session({
-		secret: 'mySecretCode.',
+		secret: process.env.SECRET,
 		resave: false,
 		saveUninitialized: false,
 	})
@@ -114,16 +114,14 @@ app
 			},
 			function (err, check) {
 				if (err) {
-					console.log();
+					console.log(err);
 				}
-				console.log(check);
+
 				res.redirect('/secrets');
 			}
 		);
 	});
-function check() {
-	console.log('hello');
-}
+
 app.get('/secrets', checkAuthenticated, function (req, res) {
 	User.find({ secrets: { $ne: null } }, function (err, foundUser) {
 		//write in note
@@ -135,7 +133,6 @@ app.get('/secrets', checkAuthenticated, function (req, res) {
 		res.render('secrets', {
 			usersWithSecrets: foundUser,
 			currentLogged: req.user.user,
-			check: check,
 		});
 	});
 });
@@ -197,6 +194,7 @@ app.get(
 		res.redirect('/secrets');
 	}
 );
-app.listen(process.env.MYPORT, function () {
+let PORT = process.env.PORT || process.env.MYPORT;
+app.listen(PORT, function () {
 	console.log('App is running on PORT ' + process.env.MYPORT);
 });
