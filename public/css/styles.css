@@ -1,0 +1,35 @@
+body {
+	background-color: #e8ecef;
+}
+
+.centered {
+	padding-top: 200px;
+	text-align: center;
+}
+
+.secret-text {
+	text-align: center;
+	font-size: 2rem;
+	color: #fff;
+	background-color: #000;
+}
+
+/* my designs */
+.note {
+	background-color: #ebd8b7;
+	padding: 5% 5%;
+}
+.note p {
+	text-align: left;
+}
+.inner-note {
+	background-color: #c6a9a3;
+
+	padding: 5%;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+	transition: all 0.4s;
+}
+.inner-note:hover {
+	box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.8);
+}
