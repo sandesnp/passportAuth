@@ -9,6 +9,7 @@
   },
   "author": "Sandesh Shrestha",
   "license": "ISC",
+  "engines": {"node": "14.15.4"},
   "dependencies": {
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
