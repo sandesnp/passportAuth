@@ -4,7 +4,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const bcrypt = require('bcrypt');
 const User = require('./models/user');
 require('dotenv').config();
-
+console.log(process.env.HOMEURL);
 //Mongoose is already declared in app.js and User is already declared there as well
 exports.auth = function (passport) {
 	//local
@@ -39,7 +39,7 @@ exports.auth = function (passport) {
 			{
 				clientID: process.env.CLIENT_ID,
 				clientSecret: process.env.CLIENT_SECRET,
-				callbackURL: '/auth/google/secrets',
+				callbackURL: `${process.env.HOMEURL}/auth/google/secrets`,
 			},
 			function (accessToken, refreshToken, profile, done) {
 				//gets gmail id and if doesn't exist creates one. The id gets seralized and put into session coookie
@@ -69,7 +69,7 @@ exports.auth = function (passport) {
 			{
 				clientID: process.env.APP_ID,
 				clientSecret: process.env.APP_SECRET,
-				callbackURL: '/auth/facebook/secrets',
+				callbackURL: `${process.env.HOMEURL}/auth/facebook/secrets`,
 				//while we can specify scope in google console we cannot for facebook so we havee to pass request of what we need
 				profileFields: ['id', 'emails', 'name'],
 			},
