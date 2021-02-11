@@ -33,6 +33,7 @@ app.use(
 		secret: process.env.SECRET,
 		resave: false,
 		saveUninitialized: false,
+		cookie: { maxAge: 24 * 60 * 60 * 1000 }, //24 hrs
 	})
 );
 //#2
@@ -45,7 +46,7 @@ app.use(passport.session());
 //passport.js
 require('./passport').auth(passport);
 
-app.get('/', function (req, res) {
+app.get('/', checkNotAuthenticated, function (req, res) {
 	res.render('home');
 });
 

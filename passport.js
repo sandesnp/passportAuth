@@ -4,7 +4,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const bcrypt = require('bcrypt');
 const User = require('./models/user');
 require('dotenv').config();
-console.log(process.env.HOMEURL);
+
 //Mongoose is already declared in app.js and User is already declared there as well
 exports.auth = function (passport) {
 	//local
@@ -75,7 +75,7 @@ exports.auth = function (passport) {
 			},
 			function (accessToken, refreshToken, profile, done) {
 				//gets facebook id and if doesn't exist creates one. The id gets seralized and put into session coookie
-				console.log(profile);
+
 				User.findOne({ facebookId: profile.id }, function (err, foundUser) {
 					if (err) {
 						return done(err);
