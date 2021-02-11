@@ -39,7 +39,7 @@ exports.auth = function (passport) {
 			{
 				clientID: process.env.CLIENT_ID,
 				clientSecret: process.env.CLIENT_SECRET,
-				callbackURL: 'http://localhost:3000/auth/google/secrets',
+				callbackURL: '/auth/google/secrets',
 			},
 			function (accessToken, refreshToken, profile, done) {
 				//gets gmail id and if doesn't exist creates one. The id gets seralized and put into session coookie
@@ -69,7 +69,7 @@ exports.auth = function (passport) {
 			{
 				clientID: process.env.APP_ID,
 				clientSecret: process.env.APP_SECRET,
-				callbackURL: 'http://localhost:3000/auth/facebook/secrets',
+				callbackURL: '/auth/facebook/secrets',
 				//while we can specify scope in google console we cannot for facebook so we havee to pass request of what we need
 				profileFields: ['id', 'emails', 'name'],
 			},
