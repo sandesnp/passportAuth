@@ -31,8 +31,8 @@ exports.auth = function (passport) {
 		)
 	);
 	// passport(new Strategy(A,B));
-	// A for requesting data which it saves
-	// B for authenticating that requested than sending it to profile
+	// A for requesting data which it stores
+	// B for authenticating or playing with the requested data then passing the data using callback `done`.
 	//google
 	passport.use(
 		new GoogleStrategy(
@@ -41,8 +41,21 @@ exports.auth = function (passport) {
 				clientSecret: process.env.CLIENT_SECRET,
 				callbackURL: `${process.env.HOMEURL}/auth/google/secrets`,
 			},
-			function (accessToken, refreshToken, profile, done) {
+			async function (accessToken, refreshToken, profile, done) {
 				//gets gmail id and if doesn't exist creates one. The id gets seralized and put into session coookie
+
+				try {
+			          const foundUser = await User.findOne({ googleId: profile.id });
+			          if (foundUser) {
+			            console.log('returning existing user', profile._json.email);
+			
+			            return done(null, foundUser); //must provide two parameter in `done` callback.
+			          }
+			          const createdUser = await User.create({ googleId: profile.id, email: profile.emails[0].value });
+			          return done(null, createdUser);
+			        } catch (err) {
+			          return done(err);
+			        }
 
 				User.findOne({ googleId: profile.id }, function (err, foundUser) {
 					if (err) {
