@@ -32,7 +32,7 @@ exports.auth = function (passport) {
 	);
 	// passport(new Strategy(A,B));
 	// A for requesting data which it saves
-	// B for authenticating that requested that sending it to profile
+	// B for authenticating that requested than sending it to profile
 	//google
 	passport.use(
 		new GoogleStrategy(
